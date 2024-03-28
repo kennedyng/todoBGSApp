@@ -4,6 +4,7 @@ import "./globals.css";
 import { cn } from "@/lib/utils";
 import { Inter as FontSans } from "next/font/google";
 import { ThemeProvider } from "@/components/providers/themeProvider";
+import AuthProvider from "@/components/providers/authProvider";
 
 const fontSans = FontSans({
   subsets: ["latin"],
@@ -28,14 +29,16 @@ export default function RootLayout({
           fontSans.variable
         )}
       >
-        <ThemeProvider
-          attribute="class"
-          defaultTheme="dark"
-          enableSystem
-          disableTransitionOnChange
-        >
-          <div className="container mx-auto">{children}</div>
-        </ThemeProvider>
+        <AuthProvider>
+          <ThemeProvider
+            attribute="class"
+            defaultTheme="dark"
+            enableSystem
+            disableTransitionOnChange
+          >
+            <div className="container mx-auto">{children}</div>
+          </ThemeProvider>
+        </AuthProvider>
       </body>
     </html>
   );

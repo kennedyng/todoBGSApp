@@ -19,7 +19,7 @@ import ActionTodoMenu from "./ActionTodoMenu";
 
 const TodoList = () => {
   return (
-    <Card className="w-full border-none  shadow-primary ">
+    <Card className="w-full">
       <CardHeader>
         <CardTitle>MY Task List</CardTitle>
         <CardDescription>List of my todo tasks</CardDescription>
