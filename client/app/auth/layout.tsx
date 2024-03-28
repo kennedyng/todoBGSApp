@@ -4,12 +4,7 @@ interface Props {
   children: ReactNode;
 }
 const Layout: FC<Props> = ({ children }) => {
-  return (
-    <div>
-      auth
-      {children}
-    </div>
-  );
+  return <div>{children}</div>;
 };
 
 export default Layout;
