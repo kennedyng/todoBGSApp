@@ -1,5 +1,3 @@
-import React from "react";
-
 import {
   Table,
   TableBody,
@@ -14,31 +12,35 @@ import {
   Card,
   CardContent,
   CardDescription,
-  CardFooter,
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
+import ActionTodoMenu from "./ActionTodoMenu";
 
 const TodoList = () => {
   return (
-    <Card>
+    <Card className="w-full border-none  shadow-primary ">
       <CardHeader>
-        <CardTitle>Task</CardTitle>
-        <CardDescription>Card Descriptio</CardDescription>
+        <CardTitle>MY Task List</CardTitle>
+        <CardDescription>List of my todo tasks</CardDescription>
       </CardHeader>
       <CardContent>
         <Table>
           <TableCaption>List of your todo Tasks</TableCaption>
           <TableHeader>
             <TableRow>
-              <TableHead></TableHead>
-              <TableHead>Method</TableHead>
+              <TableHead>TASK</TableHead>
+              <TableHead align="right" colSpan={1}>
+                Actions
+              </TableHead>
             </TableRow>
           </TableHeader>
           <TableBody>
             <TableRow>
-              <TableCell>INV001</TableCell>
-              <TableCell>Paid</TableCell>
+              <TableCell className="w-full">INV001</TableCell>
+              <TableCell align="center">
+                <ActionTodoMenu />
+              </TableCell>
             </TableRow>
           </TableBody>
         </Table>
