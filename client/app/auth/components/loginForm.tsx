@@ -27,18 +27,26 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
+import { signIn } from "next-auth/react";
+import { toast } from "sonner";
+import { useRouter } from "next/navigation";
 
 //validation schema
 const FormSchema = z.object({
   email: z.string({ required_error: "email is required" }).email(),
   password: z
     .string()
-    .min(8, "The password must be at least 8 characters long")
-    .max(32, "The password must be a maximun 32 characters")
-    .regex(
-      /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[^\da-zA-Z]).{8,}$/,
-      "Password must contain at least one lowercase letter, one uppercase letter, one digit, and one special character"
-    ),
+    .min(6, { message: "Password must be at least 6 characters long" })
+    .regex(/[A-Z]/, {
+      message: "Password must contain at least one uppercase letter",
+    })
+    .regex(/[a-z]/, {
+      message: "Password must contain at least one lowercase letter",
+    })
+    .regex(/\d/, { message: "Password must contain at least one number" })
+    .regex(/[!@#$%^&*(),.?":{}|<>]/, {
+      message: "Password must contain at least one special character",
+    }),
 });
 
 //user registration form
@@ -51,7 +59,24 @@ const LoginForm = () => {
     },
   });
 
-  function onSubmit({ email, password }: z.infer<typeof FormSchema>) {}
+  const router = useRouter();
+  const onSubmit = async ({ email, password }: z.infer<typeof FormSchema>) => {
+    const signInPromise = signIn("credentials", {
+      email,
+      password,
+      redirect: false,
+    });
+
+    toast.promise(signInPromise, {
+      loading: "Please wait Signing in", // Message displayed while the promise is pending
+      success: (res) => {
+        router.push("/");
+        router.refresh();
+        return "Successfully signed in";
+      },
+      error: (err) => "Cant Signin Error Occupied. Check Auth", // Message displayed on error
+    });
+  };
 
   let alertContent: ReactNode | null = null;
 

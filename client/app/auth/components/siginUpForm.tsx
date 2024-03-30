@@ -27,19 +27,29 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
+import useRegister from "@/app/services/useRegister";
+import { useRouter } from "next/navigation";
+import { toast } from "sonner";
 
 //validation schema
 const FormSchema = z
   .object({
+    firstName: z.string({ required_error: "First name is required" }),
+    lastName: z.string({ required_error: "lastName name is required" }),
     email: z.string({ required_error: "email is required" }).email(),
     password: z
       .string()
-      .min(8, "The password must be at least 8 characters long")
-      .max(32, "The password must be a maximun 32 characters")
-      .regex(
-        /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[^\da-zA-Z]).{8,}$/,
-        "Password must contain at least one lowercase letter, one uppercase letter, one digit, and one special character"
-      ),
+      .min(6, { message: "Password must be at least 6 characters long" })
+      .regex(/[A-Z]/, {
+        message: "Password must contain at least one uppercase letter",
+      })
+      .regex(/[a-z]/, {
+        message: "Password must contain at least one lowercase letter",
+      })
+      .regex(/\d/, { message: "Password must contain at least one number" })
+      .regex(/[!@#$%^&*(),.?":{}|<>]/, {
+        message: "Password must contain at least one special character",
+      }),
     confirmPassword: z.string(),
   })
   .refine(({ password, confirmPassword }) => password === confirmPassword, {
@@ -49,16 +59,45 @@ const FormSchema = z
 
 //user registration form
 const SignUpForm = () => {
+  const { trigger, isMutating } = useRegister();
+
+  const router = useRouter();
+
   const form = useForm<z.infer<typeof FormSchema>>({
     resolver: zodResolver(FormSchema),
     defaultValues: {
+      firstName: "",
+      lastName: "",
       email: "",
       password: "",
       confirmPassword: "",
     },
   });
 
-  function onSubmit({ email, password }: z.infer<typeof FormSchema>) {}
+  function onSubmit({
+    email,
+    password,
+    firstName,
+    lastName,
+  }: z.infer<typeof FormSchema>) {
+    trigger(
+      { firstName, lastName, email, password },
+      {
+        onSuccess: () => {
+          router.push("/auth/login");
+          toast.success("account successfully created login to continue");
+        },
+
+        onError: (err) => {
+          if (err.code == 403) {
+            return toast.error("Account Already exits");
+          }
+
+          toast.error("Something Went wrong");
+        },
+      }
+    );
+  }
 
   return (
     <Card className="w-full">
@@ -72,6 +111,40 @@ const SignUpForm = () => {
             onSubmit={form.handleSubmit(onSubmit)}
             className="flex flex-col gap-2"
           >
+            <FormField
+              control={form.control}
+              name="firstName"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>First Name</FormLabel>
+                  <FormControl>
+                    <Input
+                      placeholder="kennedyngosachanda@gmail.com"
+                      {...field}
+                    />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+
+            <FormField
+              control={form.control}
+              name="lastName"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>Last Name</FormLabel>
+                  <FormControl>
+                    <Input
+                      placeholder="kennedyngosachanda@gmail.com"
+                      {...field}
+                    />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+
             <FormField
               control={form.control}
               name="email"
@@ -96,7 +169,11 @@ const SignUpForm = () => {
                 <FormItem>
                   <FormLabel>Password</FormLabel>
                   <FormControl>
-                    <Input placeholder="**********" {...field} />
+                    <Input
+                      type="password"
+                      placeholder="**********"
+                      {...field}
+                    />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
@@ -110,14 +187,24 @@ const SignUpForm = () => {
                 <FormItem>
                   <FormLabel>Confirm Password</FormLabel>
                   <FormControl>
-                    <Input placeholder="**********" {...field} />
+                    <Input
+                      type="password"
+                      placeholder="**********"
+                      {...field}
+                    />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
               )}
             />
 
-            <Button type="submit">Sign up</Button>
+            <Button type="submit">
+              {isMutating ? (
+                <Loader2 className="w-7 h-7 animate-spin" />
+              ) : (
+                "Register"
+              )}
+            </Button>
           </form>
         </Form>
       </CardContent>

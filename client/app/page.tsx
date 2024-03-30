@@ -2,11 +2,14 @@ import Image from "next/image";
 import TodoList from "./components/todoList";
 import { Button } from "@/components/ui/button";
 import NewTodoDialogForm from "./components/newTodoDialogForm";
+import { signOut } from "next-auth/react";
+import Nav from "@/components/shared/nav";
 
 export default function Home() {
   return (
     <main>
-      <h1 className="text-center text-3xl py-20">
+      <Nav />
+      <h1 className="text-center text-3xl py-10">
         <span className="text-primary font-bold">BGS </span>
         TODO <span className="text-primary font-bold">APP</span>
       </h1>

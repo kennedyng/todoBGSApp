@@ -13,16 +13,19 @@ export const authOptions: NextAuthOptions = {
         password: { label: "Password", type: "password" },
       },
       async authorize(credentials) {
-        const res = await fetch(`${process.env.API_BASE_URL}/api/auth/login`, {
-          method: "POST",
-          body: JSON.stringify({
-            email: credentials?.email,
-            password: credentials?.password,
-          }),
-          headers: {
-            "Content-Type": "application/json",
-          },
-        });
+        const res = await fetch(
+          `${process.env.BASE_API_URL}/api/v1/auth/authenticate`,
+          {
+            method: "POST",
+            body: JSON.stringify({
+              email: credentials?.email,
+              password: credentials?.password,
+            }),
+            headers: {
+              "Content-Type": "application/json",
+            },
+          }
+        );
         if (!res.ok) return null;
         return (await res.json()) ?? null;
       },
@@ -42,7 +45,8 @@ export const authOptions: NextAuthOptions = {
 
   secret: process.env.JWT_SECRET as string,
   pages: {
-    signIn: "/user/login",
+    signIn: "/auth/login",
+    newUser: "/auth/signUp",
   },
 };
 
