@@ -1,6 +1,5 @@
 import CredentialsProvider from "next-auth/providers/credentials";
 import NextAuth, { NextAuthOptions } from "next-auth";
-
 export const authOptions: NextAuthOptions = {
   session: {
     strategy: "jwt",
@@ -26,7 +25,11 @@ export const authOptions: NextAuthOptions = {
             },
           }
         );
-        if (!res.ok) return null;
+
+        if (!res.ok) {
+          throw new Error("Failed to Authorize");
+        }
+
         return (await res.json()) ?? null;
       },
     }),
@@ -43,10 +46,10 @@ export const authOptions: NextAuthOptions = {
     },
   },
 
-  secret: process.env.JWT_SECRET as string,
+  secret: process.env.NEXTAUTH_SECRET as string,
   pages: {
     signIn: "/auth/login",
-    newUser: "/auth/signUp",
+    newUser: "/auth/signup",
   },
 };
 

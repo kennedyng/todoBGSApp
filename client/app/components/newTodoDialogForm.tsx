@@ -10,6 +10,7 @@ import {
 } from "@/components/ui/dialog";
 import { Button } from "@/components/ui/button";
 import { MdAdd } from "react-icons/md";
+import TodoForm from "./todoForm";
 
 const NewTodoDialogForm = () => {
   return (
@@ -26,6 +27,8 @@ const NewTodoDialogForm = () => {
             Kindly Provide the Task you wish todo
           </DialogDescription>
         </DialogHeader>
+
+        <TodoForm />
       </DialogContent>
     </Dialog>
   );

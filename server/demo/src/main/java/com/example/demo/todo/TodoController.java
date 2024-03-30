@@ -15,26 +15,21 @@ import java.util.List;
 public class TodoController {
 
     private final TodoService todoService;
+
     @Autowired
     public TodoController(TodoService todoService) {
         this.todoService = todoService;
     }
 
-
-
-    @GetMapping
+    @GetMapping(path = "/all")
     public List<Todo> getTodos() {
-        return  todoService.getTodos();
+        return todoService.getTodos();
     }
-
 
     @PostMapping
     public ResponseEntity<Todo> addTodo(@RequestBody Todo todo) {
         Todo addedTodo = todoService.addTodo(todo);
         return ResponseEntity.status(HttpStatus.CREATED).body(addedTodo);
     }
-
-
-
 
 }

@@ -15,9 +15,11 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
+import { getTodos } from "@/lib/server";
 import ActionTodoMenu from "./ActionTodoMenu";
 
-const TodoList = () => {
+const TodoList = async () => {
+  const todos = await getTodos();
   return (
     <Card className="w-full">
       <CardHeader>
@@ -36,12 +38,14 @@ const TodoList = () => {
             </TableRow>
           </TableHeader>
           <TableBody>
-            <TableRow>
-              <TableCell className="w-full">INV001</TableCell>
-              <TableCell align="center">
-                <ActionTodoMenu />
-              </TableCell>
-            </TableRow>
+            {todos.map(({ id, task }) => (
+              <TableRow key={id}>
+                <TableCell className="w-full">{task}</TableCell>
+                <TableCell align="center">
+                  <ActionTodoMenu id={id} />
+                </TableCell>
+              </TableRow>
+            ))}
           </TableBody>
         </Table>
       </CardContent>

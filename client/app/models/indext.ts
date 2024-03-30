@@ -4,3 +4,5 @@ export interface User {
   email: string;
   password: string;
 }
+
+export type TodoType = { id: string; task: string };

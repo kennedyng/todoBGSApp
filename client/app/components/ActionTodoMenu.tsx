@@ -1,3 +1,5 @@
+"use client";
+
 import { Button } from "@/components/ui/button";
 import {
   DropdownMenu,
@@ -8,9 +10,19 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
+import { deleteTodo } from "@/lib/actions";
+import { FC } from "react";
 import { MdMenu } from "react-icons/md";
 
-const ActionTodoMenu = () => {
+interface Props {
+  id: string;
+}
+const ActionTodoMenu: FC<Props> = ({ id }) => {
+  const deleteTodoWithId = deleteTodo.bind(null, id);
+
+  const handleDeleteTodo = async () => {
+    await deleteTodoWithId();
+  };
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
@@ -22,9 +34,8 @@ const ActionTodoMenu = () => {
         <DropdownMenuLabel>Actions Menu</DropdownMenuLabel>
         <DropdownMenuSeparator />
         <DropdownMenuGroup>
-          <DropdownMenuItem>Mark Done</DropdownMenuItem>
           <DropdownMenuItem>Edit</DropdownMenuItem>
-          <DropdownMenuItem>Delete</DropdownMenuItem>
+          <DropdownMenuItem onClick={handleDeleteTodo}>Delete</DropdownMenuItem>
         </DropdownMenuGroup>
       </DropdownMenuContent>
     </DropdownMenu>

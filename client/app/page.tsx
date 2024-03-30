@@ -4,6 +4,8 @@ import { Button } from "@/components/ui/button";
 import NewTodoDialogForm from "./components/newTodoDialogForm";
 import { signOut } from "next-auth/react";
 import Nav from "@/components/shared/nav";
+import { Suspense } from "react";
+import LoadingTodosList from "./components/loadingTodosList";
 
 export default function Home() {
   return (
@@ -11,7 +13,7 @@ export default function Home() {
       <Nav />
       <h1 className="text-center text-3xl py-10">
         <span className="text-primary font-bold">BGS </span>
-        TODO <span className="text-primary font-bold">APP</span>
+        Tickle Tasks<span className="text-primary font-bold"> APP</span>
       </h1>
 
       <div className="flex flex-col items-center">
@@ -19,7 +21,9 @@ export default function Home() {
           <div className="my-4 text-end">
             <NewTodoDialogForm />
           </div>
-          <TodoList />
+          <Suspense fallback={<LoadingTodosList />}>
+            <TodoList />
+          </Suspense>
         </div>
       </div>
     </main>
