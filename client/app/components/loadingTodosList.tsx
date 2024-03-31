@@ -32,7 +32,7 @@ const LoadingTodosList = async () => {
         </CardDescription>
       </CardHeader>
       <CardContent>
-        <Table>
+        <Table className="flex flex-col gap-2">
           <TableCaption>
             <Skeleton className="h-4 w-[250px]" />
           </TableCaption>

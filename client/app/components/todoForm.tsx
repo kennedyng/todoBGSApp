@@ -21,6 +21,8 @@ import { toast } from "sonner";
 import useAddTodo from "../services/useAddTodo";
 import { revalidatePath, revalidateTag } from "next/cache";
 import { revalidateTodos } from "@/lib/actions";
+import { TodoType } from "../models/indext";
+import moment from "moment";
 
 //validation schema
 const FormSchema = z.object({
@@ -42,7 +44,12 @@ const TodoForm = () => {
     trigger(
       { task },
       {
-        onSuccess: async () => await revalidateTodos(),
+        onSuccess: async (data) => {
+          toast.success("successfully created", {
+            description: data.task,
+          });
+          await revalidateTodos();
+        },
       }
     );
   }

@@ -42,7 +42,7 @@ export const createTodo = async (
 
 export const getTodos = async (): Promise<TodoType[]> => {
   const session = await auth();
-  const res = await fetch(`${process.env.BASE_API_URL}/api/v1/todo/all`, {
+  const res = await fetch(`${process.env.BASE_API_URL}/api/v1/todo/list`, {
     method: "GET",
     headers: {
       "Content-Type": "application/json",

@@ -12,10 +12,12 @@ import {
 } from "@/components/ui/dropdown-menu";
 import { deleteTodo } from "@/lib/actions";
 import { FC } from "react";
-import { MdMenu } from "react-icons/md";
+import { MdDelete, MdEdit, MdMenu } from "react-icons/md";
+import EditTodo from "./editTodo";
 
 interface Props {
   id: string;
+  task: string;
 }
 const ActionTodoMenu: FC<Props> = ({ id }) => {
   const deleteTodoWithId = deleteTodo.bind(null, id);
@@ -24,21 +26,17 @@ const ActionTodoMenu: FC<Props> = ({ id }) => {
     await deleteTodoWithId();
   };
   return (
-    <DropdownMenu>
-      <DropdownMenuTrigger asChild>
-        <Button size={"icon"} variant={"outline"} className="rounded-full">
-          <MdMenu className="text-white w-5 h-7" />
-        </Button>
-      </DropdownMenuTrigger>
-      <DropdownMenuContent>
-        <DropdownMenuLabel>Actions Menu</DropdownMenuLabel>
-        <DropdownMenuSeparator />
-        <DropdownMenuGroup>
-          <DropdownMenuItem>Edit</DropdownMenuItem>
-          <DropdownMenuItem onClick={handleDeleteTodo}>Delete</DropdownMenuItem>
-        </DropdownMenuGroup>
-      </DropdownMenuContent>
-    </DropdownMenu>
+    <div className="flex flex-row gap-2">
+      <EditTodo todoId={id} />
+      <Button
+        onClick={() => handleDeleteTodo()}
+        size={"icon"}
+        variant={"outline"}
+        className="rounded-full"
+      >
+        <MdDelete className="w-5 h-7 text-white" />
+      </Button>
+    </div>
   );
 };
 

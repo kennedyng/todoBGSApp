@@ -27,7 +27,6 @@ const NewTodoDialogForm = () => {
             Kindly Provide the Task you wish todo
           </DialogDescription>
         </DialogHeader>
-
         <TodoForm />
       </DialogContent>
     </Dialog>

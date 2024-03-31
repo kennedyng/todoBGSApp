@@ -5,4 +5,4 @@ export interface User {
   password: string;
 }
 
-export type TodoType = { id: string; task: string };
+export type TodoType = { id: string; task: string; createDate: string };
