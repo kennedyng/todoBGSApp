@@ -119,14 +119,16 @@ const LoginForm = () => {
                 <FormItem>
                   <FormLabel>Password</FormLabel>
                   <FormControl>
-                    <Input placeholder="**********" {...field} />
+                    <Input placeholder="1234.." type="password" {...field} />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
               )}
             />
 
-            <Button type="submit">Login</Button>
+            <Button className="mt-2" type="submit">
+              Login
+            </Button>
           </form>
         </Form>
       </CardContent>

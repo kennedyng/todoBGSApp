@@ -1,18 +1,8 @@
 "use client";
-
 import { Button } from "@/components/ui/button";
-import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuGroup,
-  DropdownMenuItem,
-  DropdownMenuLabel,
-  DropdownMenuSeparator,
-  DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu";
 import { deleteTodo } from "@/lib/actions";
 import { FC } from "react";
-import { MdDelete, MdEdit, MdMenu } from "react-icons/md";
+import { MdDelete } from "react-icons/md";
 import EditTodo from "./editTodo";
 
 interface Props {

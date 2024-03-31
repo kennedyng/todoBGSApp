@@ -29,7 +29,6 @@ export async function updateTodo(id: string, formData: FormData) {
     updatedTodo: formData.get("task"),
   };
 
-  console.log("todo", rawFormData);
   const res = await fetch(
     `${process.env.BASE_API_URL}/api/v1/todo/edit/${id}?task=${rawFormData.updatedTodo}`,
     {

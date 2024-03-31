@@ -10,7 +10,7 @@ export function ThemeProvider({ children, ...props }: ThemeProviderProps) {
     <NextThemesProvider {...props}>
       {children}
 
-      <Toaster theme="dark" richColors />
+      <Toaster position="bottom-left" theme="dark" richColors />
     </NextThemesProvider>
   );
 }

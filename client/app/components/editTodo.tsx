@@ -1,3 +1,5 @@
+"use client";
+
 import { Button } from "@/components/ui/button";
 import {
   Dialog,
@@ -7,10 +9,10 @@ import {
   DialogTitle,
   DialogTrigger,
 } from "@/components/ui/dialog";
-import { FC } from "react";
-import { MdEdit } from "react-icons/md";
 import { Input } from "@/components/ui/input";
 import { updateTodo } from "@/lib/actions";
+import { FC } from "react";
+import { MdEdit } from "react-icons/md";
 
 interface Props {
   todoId: string;
@@ -35,9 +37,11 @@ const EditTodo: FC<Props> = ({ todoId }) => {
           <Input
             name="task"
             id="task"
+            required
             className="h-[50px]"
             placeholder="Have a staring contest with a pet or a houseplant."
           />
+
           <Button type="submit">Update</Button>
         </form>
       </DialogContent>

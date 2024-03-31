@@ -1,12 +1,4 @@
-import {
-  Table,
-  TableBody,
-  TableCaption,
-  TableCell,
-  TableHead,
-  TableHeader,
-  TableRow,
-} from "@/components/ui/table";
+import { Table, TableBody, TableCaption } from "@/components/ui/table";
 
 import {
   Card,
@@ -15,9 +7,8 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
-import { getTodos } from "@/lib/server";
-import ActionTodoMenu from "./ActionTodoMenu";
 import { Skeleton } from "@/components/ui/skeleton";
+import { getTodos } from "@/lib/server";
 
 const LoadingTodosList = async () => {
   const todos = await getTodos();
@@ -37,12 +28,10 @@ const LoadingTodosList = async () => {
             <Skeleton className="h-4 w-[250px]" />
           </TableCaption>
           <Skeleton className="h-10 w-[250px]" />
-          <TableBody>
-            <Skeleton className="h-10 w-full" />
-            <Skeleton className="h-10 w-full" />
-            <Skeleton className="h-10 w-full" />
-            <Skeleton className="h-10 w-full" />
-            <Skeleton className="h-10 w-full" />
+          <TableBody className="flex flex-col gap-2">
+            <Skeleton className="h-20 w-full" />
+            <Skeleton className="h-20 w-full" />
+            <Skeleton className="h-20 w-full" />
           </TableBody>
         </Table>
       </CardContent>

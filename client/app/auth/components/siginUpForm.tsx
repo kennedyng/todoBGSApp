@@ -198,7 +198,7 @@ const SignUpForm = () => {
               )}
             />
 
-            <Button type="submit">
+            <Button className="mt-2" type="submit">
               {isMutating ? (
                 <Loader2 className="w-7 h-7 animate-spin" />
               ) : (
