@@ -11,10 +11,19 @@ export default function Home() {
   return (
     <main>
       <Nav />
-      <h1 className="text-center text-3xl py-10">
-        <span className="text-primary font-bold">BGS </span>
-        Tickle Tasks<span className="text-primary font-bold"> APP</span>
-      </h1>
+      <div>
+        <h1 className="text-center py-4">
+          <span className="text-primary font-bold">
+            <span className="text-5xl">S</span>
+            <span className="text-2xl">IMPLE</span>{" "}
+          </span>
+          <span className="text-2xl"> TODO LIST</span>
+          <span className="text-primary font-bold text-2xl"> APP</span>
+        </h1>
+        <p className="text-center text-muted">
+          Create and manage your todo task in an modern way, lets go!!!
+        </p>
+      </div>
 
       <div className="flex flex-col items-center">
         <div className="w-full lg:w-2/3">
